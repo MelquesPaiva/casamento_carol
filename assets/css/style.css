@@ -103,7 +103,10 @@ footer {
 .btn-warning {
 	color: #FFFFFF !important;
 }
-
+.padrinhos img {
+	/*width: 500px !important;*/
+	/*height: 500px !important;*/
+}
 
 @media (max-width: 992px) {
 	.menu {

@@ -45,14 +45,14 @@ if(isset($_POST['codigoNovaSenha']) && !empty($_POST['codigoNovaSenha'])) {
 			<div class="navbar-brand display-4 font-italic" style="font-size: 25px; color: #F5A9E1;">
 				Carol e Rafique
 			</div>
-			<?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
+		<?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
 			<button class="navbar-toggler" data-toggle="collapse" data-target="#itensMenu">
 				<img src="assets/images/menu.png" height="30"/>
 			</button>
 			<div class="navbar-collapse collapse justify-content-end" id="itensMenu">
-			<?php else:?>
+		<?php else:?>
 			<div class="navbar-collapse justify-content-end" id="itensMenu">
-			<?php endif;?>	
+		<?php endif;?>	
 			
 				<div class="navbar navbar-tabs">
 					<a href="index.php" class="nav-item nav-link btn text-dark">Página Inicial</a>
@@ -62,17 +62,17 @@ if(isset($_POST['codigoNovaSenha']) && !empty($_POST['codigoNovaSenha'])) {
 					    	Perfil
 					  	</a>
 					  	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-					    	<a class="dropdown-item" href="#">Item 1</a>
+					    	<a class="dropdown-item" href="padrinhos.php">Padrinhos e Madrinhas</a>
 					    	<a class="dropdown-item" href="#">Item 2</a>
 
-					    	<?php if(empty($_SESSION['id'])):?>
+				   	<?php if(empty($_SESSION['id'])):?>
 					    	<button class="dropdown-item" data-toggle="modal" data-target="#modalLogin">Acesso restrito</button>
-					    	<?php endif;?>
+				   	<?php endif;?>
 					  	</div>
 					</div>
 					<a href="lista-presentes.php" class="nav-item nav-link btn text-dark">Lista de Presentes</a>
 
-					<?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
+				<?php if(isset($_SESSION['id']) && !empty($_SESSION['id'])):?>
 					<div class="dropdown show">
 						<a class="btn nav-item nav-link btn text-dark dropdown-toggle text-center" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="Opções exclusivas pra quem faz login">
 					    	Mais Opções
@@ -80,16 +80,17 @@ if(isset($_POST['codigoNovaSenha']) && !empty($_POST['codigoNovaSenha'])) {
 					  	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 					    	<a class="dropdown-item" href="lista2-presentes.php">Edição/Exclusão presentes</a>
 					    	<a class="dropdown-item" href="add-presentes.php">Adicionar presentes</a>
+					    	<a class="dropdown-item" href="add-padrinhos.php">Adicionar Padrinhos</a>
 					    	<button class="dropdown-item" data-toggle="modal" data-target="#modalAltSenha">Altere a Senha</button>
 					    	<a class="dropdown-item" href="sair.php">Logout</a>
 					  	</div>
 					</div>
-					<?php endif;?>
+				<?php endif;?>
 				</div>
 			</div>
 		</nav>
 	</div>
-
+<?php if(empty($_SESSION['id'])):?>
 	<div id="modalLogin" class="modal fade">
 		<div class="modal-dialog modal-sm">
 			<div class="modal-content">
@@ -116,6 +117,7 @@ if(isset($_POST['codigoNovaSenha']) && !empty($_POST['codigoNovaSenha'])) {
 			</div>
 		</div>		
 	</div>
+<?php endif;?>
 
 	<div id="modalAltSenha" class="modal fade">
 		<div class="modal-dialog modal-sm">

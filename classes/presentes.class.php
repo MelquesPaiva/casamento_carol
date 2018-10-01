@@ -10,7 +10,7 @@ class Presentes {
 		$this->pdo = $this->conexao->getPdo();
 	}
 
-	public function inserirPresente($idCategoria, $nome, $fotos) {
+	public function inserirPresente($idCategoria, $nome, $fotos, $max_pessoas) {
 		$tmpname = null;
 		if(!empty($fotos)) {
 			$tipo = $fotos['type'][0];
@@ -43,13 +43,14 @@ class Presentes {
 				imagecopyresampled($img, $origi, 0, 0, 0, 0, $width, $heigth, $width_orig, $height_orig);
 				imagejpeg($img, 'assets/images/presentes/'.$tmpname, 80);
 			}
-		}
 
-		$sql = "INSERT INTO presentes (id_categoria, nome, url_foto) VALUES (:idCategoria, :nome, :url_foto)";
+		}
+		$sql = "INSERT INTO presentes (id_categoria, nome, url_foto, max_pessoas) VALUES (:idCategoria, :nome, :url_foto, :max_pessoas)";
 		$sql = $this->pdo->prepare($sql);
 		$sql->bindValue(":idCategoria", $idCategoria);
 		$sql->bindValue(":nome", $nome);
 		$sql->bindValue(":url_foto", $tmpname);
+		$sql->bindValue(":max_pessoas", $max_pessoas);
 
 		$sql->execute();		
 	}
@@ -60,7 +61,7 @@ class Presentes {
 		$sql->execute();
 	}
 
-	public function editarPresente($idPresente, $idCategoria, $nome, $fotos) {
+	public function editarPresente($idPresente, $idCategoria, $nome, $fotos, $max_pessoas) {
 		$p = new Presentes();
 		$presente = $p->getPresentesPorId($idPresente);
 
@@ -104,6 +105,7 @@ class Presentes {
 		$sql->bindValue(":nome", $nome);
 		$sql->bindValue(":url_foto", $presente['url_foto']);
 		$sql->bindValue(":id_presente", $idPresente);
+		$sql->bindValue(":max_pessoas", $max_pessoas);
 
 		$sql->execute(); 
 	}
@@ -151,9 +153,25 @@ class Presentes {
 	}
 
 	public function inserirNomeConvidado($idPresente, $nomeConvidado) {
-		$sql = $this->pdo->prepare("UPDATE presentes SET nome_convidado = :nome_convidado WHERE id = :id_presente");
+		$p = new Presentes();
+		$p = $p->getPresentesPorId($idPresente);
+
+		if(empty($p['nome_convidado'])) {
+			$p['nome_convidado'] = $nomeConvidado;
+		} else {
+			$p['nome_convidado'] .= ",".$nomeConvidado;
+		}
+		
+		if($p['qtd_pessoas'] >= $p['max_pessoas']) {
+			$qtd_pessoas = $p['qtd_pessoas'];
+		} else {
+			$qtd_pessoas = $p['qtd_pessoas'] + 1;
+		}
+
+		$sql = $this->pdo->prepare("UPDATE presentes SET nome_convidado = :nome_convidado, qtd_pessoas = :qtd_pessoas WHERE id = :id_presente");
 		$sql->bindValue(":id_presente", $idPresente);
-		$sql->bindValue(":nome_convidado", $nomeConvidado);
+		$sql->bindValue(":nome_convidado", $p['nome_convidado']);
+		$sql->bindValue(":qtd_pessoas", $qtd_pessoas);
 		$sql->execute();
 	}
 }

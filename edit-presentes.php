@@ -27,7 +27,9 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 			$foto = array();
 		}
 
-		$p->editarPresente($id, $idCategoria, $nomeItem, $foto);
+		$max_pessoas = addslashes($_POST['max_pessoas']);
+
+		$p->editarPresente($id, $idCategoria, $nomeItem, $foto, $max_pessoas);
 		$salvo = 1;		
 	}	
 		
@@ -81,6 +83,10 @@ if(isset($_GET['id']) && !empty($_GET['id'])) {
 					</div>
 				</div>
 			</div>	
+			<div class="form-group">
+				<label for="max_pessoas">Máximo de pessoas</label>
+				<input type="number" name="max_pessoas" id="max_pessoas" value="<?php echo $presente['max_pessoas']?>" class="form-control"/>
+			</div>
 			<div class="form-group">
 				<input type="submit" name="enviar" value="Atualizar Presente" class="btn btn-primary btn-block"/>
 			</div>

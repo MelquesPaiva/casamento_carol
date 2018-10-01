@@ -76,6 +76,7 @@ if(isset($_POST['nomeConvidado']) && !empty($_POST['nomeConvidado'])) {
 				<div class="card-body presentes d-flex align-items-center flex-column">
 					<img src="assets/images/presentes/<?php echo $presente['url_foto'];?>" class="img-thumbnail" border="0"/>
 					<h5 class="mt-2" style="font-size: 16px;"><?php echo $presente['nome'];?></h5>
+				<?php if($presente['qtd_pessoas'] < $presente['max_pessoas']):?>	
 					<form method="POST" class="mt-2" style="bottom: 0; position: absolute;"
 					 onsubmit="return confirm('Deseja escolher este presente?')">
 						<div class="form-group">
@@ -84,6 +85,9 @@ if(isset($_POST['nomeConvidado']) && !empty($_POST['nomeConvidado'])) {
 							<input type="submit" name="enviar" value="Escolher este presente" class="mt-2 btn btn-primary btn-block"/>
 						</div>
 					</form>
+				<?php else:?>
+					<h5 class="text-muted">Presente já foi escolhido</h5>
+				<?php endif;?>		
 				</div>				
 			</div>			
 		</div> 

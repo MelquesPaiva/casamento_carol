@@ -72,9 +72,7 @@ if(isset($_POST['nomeConvidado']) && !empty($_POST['nomeConvidado'])) {
 	<?php	
 	}
 	?>	
-	<?php
-	foreach ($presentes as $presente) {
-	?>		
+	<?php foreach ($presentes as $presente):?>		
 		<div class="col-md-4">
 			<div class="card mt-2 lista2" style="height: 400px;">
 				<div class="card-header">
@@ -99,16 +97,12 @@ if(isset($_POST['nomeConvidado']) && !empty($_POST['nomeConvidado'])) {
 				</div>				
 			</div>			
 		</div>
-	<?php	
-	}
-	if(empty($presentes)) {
-	?>
+	<?php endforeach;?>	
+	<?php if(empty($presentes)):?>
 		<div class="col-md-12 alert alert-warning text-center">
 			<h5>Não existem presentes nessa categoria!</h5>
 		</div>	
-	<?php	
-	}
-	?>
+	<?php endif;?>
 	</div>		
 </div>
 

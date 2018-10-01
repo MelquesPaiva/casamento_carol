@@ -30,7 +30,9 @@ if(isset($_POST['nomeCategoria']) && !empty($_POST['nomeCategoria'])) {
 		$foto = array();
 	}
 
-	$presente->inserirPresente($idCategoria, $nomeItem, $foto);
+	$max_pessoas = addslashes($_POST['max_pessoas']);
+
+	$presente->inserirPresente($idCategoria, $nomeItem, $foto, $max_pessoas);
 	$salvo = 1;
 }
 
@@ -60,6 +62,10 @@ if(isset($_POST['nomeCategoria']) && !empty($_POST['nomeCategoria'])) {
 			<div class="form-group">
 				<label for="add-foto">Foto do presente:</label><br/>
 				<input type="file" name="foto[]" multiple="false" id="add-foto" />
+			</div>
+			<div class="form-group">
+				<label for="max_pessoas">Máximo de pessoas</label>
+				<input type="number" name="max_pessoas" id="max_pessoas" class="form-control" placeholder="Número de pessoas para esse presente" />
 			</div>	
 			<div class="form-group">
 				<input type="submit" name="enviar" value="Salvar Presente" class="btn btn-primary btn-block"/>
